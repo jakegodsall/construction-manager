@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS job;
 
 CREATE TABLE invoice (
     id BIGINT AUTO_INCREMENT,
-    data BLOB NOT NULL,
+    data TINYBLOB NOT NULL,
     filename VARCHAR(30),
     file_type VARCHAR(30),
     PRIMARY KEY (id)
@@ -13,7 +13,7 @@ CREATE TABLE invoice (
 
 CREATE TABLE quotation (
      id BIGINT AUTO_INCREMENT,
-     data BLOB NOT NULL,
+     data TINYBLOB NOT NULL,
      filename VARCHAR(30),
      file_type VARCHAR(30),
      PRIMARY KEY (id)
@@ -35,6 +35,8 @@ CREATE TABLE job (
     street VARCHAR(30),
     city VARCHAR(30),
     postcode VARCHAR(30),
+    job_status VARCHAR(30),
+    CHECK (job_status IN ('REJECTED', 'PENDING', 'IN_PROGRESS', 'COMPLETE')),
     price NUMERIC(19, 2),
     quotation_id BIGINT,
     invoice_id BIGINT,

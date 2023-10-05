@@ -38,9 +38,13 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDto createCustomer(CustomerDto customerDto, Long id) {
+    public CustomerDto createCustomer(CustomerDto customerDto) {
+        System.out.println("CUSTOMER DTO");
+        System.out.println(customerDto);
         // Map the DTO to entity
         Customer customer = this.mapToEntity(customerDto);
+        System.out.println("CUSTOMER");
+        System.out.println(customer);
         // Save the entity in the db
         Customer customerInDb = customerRepository.save(customer);
         // Map the saved entity to DTO and return
@@ -58,6 +62,8 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setLastName(customerDto.getLastName());
         customer.setPhoneNumber(customerDto.getPhoneNumber());
         customer.setEmailAddress(customerDto.getEmailAddress());
+        customer.setCreatedDate(customerDto.getCreatedDate());
+        customer.setLastModifiedDate(customerDto.getLastModifiedDate());
         // Save the entity in the database
         customerRepository.save(customer);
         // Map to DTO and return
@@ -82,8 +88,9 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setFirstName(customerDto.getFirstName());
         customer.setLastName(customerDto.getLastName());
         customer.setPhoneNumber(customerDto.getPhoneNumber());
-        customer.setEmailAddress(customer.getEmailAddress());
-
+        customer.setEmailAddress(customerDto.getEmailAddress());
+        customer.setCreatedDate(customerDto.getCreatedDate());
+        customer.setLastModifiedDate(customerDto.getLastModifiedDate());
         return customer;
     }
 
@@ -95,7 +102,8 @@ public class CustomerServiceImpl implements CustomerService {
         customerDto.setLastName(customer.getLastName());
         customerDto.setPhoneNumber(customer.getPhoneNumber());
         customerDto.setEmailAddress(customer.getEmailAddress());
-
+        customerDto.setCreatedDate(customer.getCreatedDate());
+        customerDto.setLastModifiedDate(customer.getLastModifiedDate());
         return customerDto;
     }
 }

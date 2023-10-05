@@ -1,9 +1,7 @@
 package com.jakegodsall.constructionmanager.payload;
 
-import com.jakegodsall.constructionmanager.entity.Job;
-
+import java.util.Date;
 import java.util.Objects;
-import java.util.Set;
 
 public class CustomerDto {
     private Long id;
@@ -11,7 +9,8 @@ public class CustomerDto {
     private String lastName;
     private String phoneNumber;
     private String emailAddress;
-    private Set<Job> jobs;
+    private Date createdDate;
+    private Date lastModifiedDate;
 
     public CustomerDto() {
     }
@@ -21,13 +20,15 @@ public class CustomerDto {
                        String lastName,
                        String phoneNumber,
                        String emailAddress,
-                       Set<Job> jobs) {
+                       Date createdDate,
+                       Date lastModifiedDate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
-        this.jobs = jobs;
+        this.createdDate = createdDate;
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     public Long getId() {
@@ -70,12 +71,20 @@ public class CustomerDto {
         this.emailAddress = emailAddress;
     }
 
-    public Set<Job> getJobs() {
-        return jobs;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setJobs(Set<Job> jobs) {
-        this.jobs = jobs;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     @Override
@@ -83,18 +92,24 @@ public class CustomerDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CustomerDto that = (CustomerDto) o;
-        return Objects.equals(id, that.id) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(emailAddress, that.emailAddress) && Objects.equals(jobs, that.jobs);
+        return Objects.equals(id, that.id) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(emailAddress, that.emailAddress) && Objects.equals(createdDate, that.createdDate) && Objects.equals(lastModifiedDate, that.lastModifiedDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, phoneNumber, emailAddress, jobs);
+        return Objects.hash(id, firstName, lastName, phoneNumber, emailAddress, createdDate, lastModifiedDate);
     }
 
     @Override
     public String toString() {
-        return "(" + this.id + ")"
-                + this.firstName + " "
-                + this.lastName;
+        return "CustomerDto{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", createdDate=" + createdDate +
+                ", lastModifiedDate=" + lastModifiedDate +
+                '}';
     }
 }
