@@ -31,4 +31,4 @@ Clone this repository to your local machine.
 Navigate to the project directory, build with maven and run the application.
 
 ## License
-This project is licensed under the [] License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the [GNU General Public License version 3.0 (GPL-3.0)](LICENSE) - see the [LICENSE](LICENSE) file for details.
