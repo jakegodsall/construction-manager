@@ -1,5 +1,6 @@
 package com.jakegodsall.constructionmanager.service.impl;
 
+import com.jakegodsall.constructionmanager.entity.Address;
 import com.jakegodsall.constructionmanager.entity.Job;
 import com.jakegodsall.constructionmanager.exception.ResourceNotFoundException;
 import com.jakegodsall.constructionmanager.payload.JobDto;
@@ -52,7 +53,7 @@ public class JobServiceImpl implements JobService {
     public JobDto updateJob(JobDto jobDto, Long id) {
         // get the job entity with pk = id from the database
         Job job = jobRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Job", "id" id)
+                () -> new ResourceNotFoundException("Job", "id", id)
         );
         // update fields of the job entity
         job.setLastModifiedDate(new Date());
@@ -71,7 +72,7 @@ public class JobServiceImpl implements JobService {
     public void deleteJob(Long id) {
         // get the job entity with pk = id from the database
         Job job = jobRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Job", "id" id)
+                () -> new ResourceNotFoundException("Job", "id", id)
         );
         // delete from the database
         jobRepository.delete(job);
@@ -92,13 +93,18 @@ public class JobServiceImpl implements JobService {
 
     private Job mapToEntity(JobDto jobDto) {
         // Map from DTO to entity
+
+        // Create an Address class for embedding into job entity
+        Address address = new Address();
+        address.setStreet(jobDto.getStreet());
+        address.setCity(jobDto.getCity());
+        address.setPostcode(jobDto.getPostCode());
+
         Job job = new Job();
         job.setId(jobDto.getId());
         job.setCreatedDate(jobDto.getCreatedDate());
         job.setLastModifiedDate(jobDto.getLastModifiedDate());
-        job.getAddress().setStreet(jobDto.getStreet());
-        job.getAddress().setCity(jobDto.getCity());
-        job.getAddress().setPostcode(jobDto.getPostCode());
+        job.setAddress(address);
         job.setPrice(jobDto.getPrice());
         return job;
     }
