@@ -31,6 +31,8 @@ public class CustomerController {
 
     @PostMapping
     ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto customerDto) {
+        System.out.println("FROM POST MAPPING");
+        System.out.println(customerDto);
         // Create the entity in the db
         CustomerDto customer = customerService.createCustomer(customerDto);
         // Construct the URI for the entity

@@ -1,15 +1,23 @@
 package com.jakegodsall.constructionmanager.payload;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 import java.util.Objects;
 
 public class CustomerDto {
     private Long id;
+    @JsonProperty("first_name")
     private String firstName;
+    @JsonProperty("last_name")
     private String lastName;
+    @JsonProperty("phone_number")
     private String phoneNumber;
+    @JsonProperty("email_address")
     private String emailAddress;
+    @JsonProperty("created_date")
     private Date createdDate;
+    @JsonProperty("last_modified_date")
     private Date lastModifiedDate;
 
     public CustomerDto() {

@@ -1,20 +1,29 @@
 package com.jakegodsall.constructionmanager.payload;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
 public class JobDto {
     private Long id;
+    @JsonProperty("created_date")
     private Date createdDate;
+    @JsonProperty("last_modified_date")
     private Date lastModifiedDate;
+    @JsonProperty("customer_id")
     private Long customerId;
     private String street;
     private String city;
+    @JsonProperty("post_code")
     private String postCode;
+    @JsonProperty("job_status")
     private String jobStatus;
     private BigDecimal price;
+    @JsonProperty("quotation_id")
     private Long quotationId;
+    @JsonProperty("invoice_id")
     private Long invoiceId;
 
     public JobDto() {
