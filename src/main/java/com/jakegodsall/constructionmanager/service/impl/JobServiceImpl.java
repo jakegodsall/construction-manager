@@ -8,7 +8,6 @@ import com.jakegodsall.constructionmanager.repository.JobRepository;
 import com.jakegodsall.constructionmanager.service.JobService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
