@@ -6,12 +6,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
-public class JobDto {
-    private Long id;
-    @JsonProperty("created_date")
-    private Date createdDate;
-    @JsonProperty("last_modified_date")
-    private Date lastModifiedDate;
+public class JobDto extends BaseDto {
     @JsonProperty("customer_id")
     private Long customerId;
     private String street;
@@ -29,10 +24,7 @@ public class JobDto {
     public JobDto() {
     }
 
-    public JobDto(Long id,
-                  Date createdDate,
-                  Date lastModifiedDate,
-                  Long customerId,
+    public JobDto(Long customerId,
                   String street,
                   String city,
                   String postCode,
@@ -40,9 +32,6 @@ public class JobDto {
                   BigDecimal price,
                   Long quotationId,
                   Long invoiceId) {
-        this.id = id;
-        this.createdDate = createdDate;
-        this.lastModifiedDate = lastModifiedDate;
         this.customerId = customerId;
         this.street = street;
         this.city = city;
@@ -51,30 +40,6 @@ public class JobDto {
         this.price = price;
         this.quotationId = quotationId;
         this.invoiceId = invoiceId;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Date getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(Date lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
     }
 
     public Long getCustomerId() {
@@ -146,19 +111,11 @@ public class JobDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         JobDto jobDto = (JobDto) o;
-        return Objects.equals(id, jobDto.id) && Objects.equals(createdDate, jobDto.createdDate) && Objects.equals(lastModifiedDate, jobDto.lastModifiedDate) && Objects.equals(customerId, jobDto.customerId) && Objects.equals(street, jobDto.street) && Objects.equals(city, jobDto.city) && Objects.equals(postCode, jobDto.postCode) && Objects.equals(jobStatus, jobDto.jobStatus) && Objects.equals(price, jobDto.price) && Objects.equals(quotationId, jobDto.quotationId) && Objects.equals(invoiceId, jobDto.invoiceId);
+        return Objects.equals(customerId, jobDto.customerId) && Objects.equals(street, jobDto.street) && Objects.equals(city, jobDto.city) && Objects.equals(postCode, jobDto.postCode) && Objects.equals(jobStatus, jobDto.jobStatus) && Objects.equals(price, jobDto.price) && Objects.equals(quotationId, jobDto.quotationId) && Objects.equals(invoiceId, jobDto.invoiceId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, createdDate, lastModifiedDate, customerId, street, city, postCode, jobStatus, price, quotationId, invoiceId);
-    }
-
-    @Override
-    public String toString() {
-        return "JobDto{" +
-                "createdDate=" + createdDate +
-                ", postCode='" + postCode + '\'' +
-                '}';
+        return Objects.hash(customerId, street, city, postCode, jobStatus, price, quotationId, invoiceId);
     }
 }

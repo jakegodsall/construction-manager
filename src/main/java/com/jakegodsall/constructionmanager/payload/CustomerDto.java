@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.Objects;
 
 public class CustomerDto {
-    private Long id;
     @JsonProperty("first_name")
     private String firstName;
     @JsonProperty("last_name")
@@ -15,36 +14,18 @@ public class CustomerDto {
     private String phoneNumber;
     @JsonProperty("email_address")
     private String emailAddress;
-    @JsonProperty("created_date")
-    private Date createdDate;
-    @JsonProperty("last_modified_date")
-    private Date lastModifiedDate;
 
     public CustomerDto() {
     }
 
-    public CustomerDto(Long id,
-                       String firstName,
+    public CustomerDto(String firstName,
                        String lastName,
                        String phoneNumber,
-                       String emailAddress,
-                       Date createdDate,
-                       Date lastModifiedDate) {
-        this.id = id;
+                       String emailAddress) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
-        this.createdDate = createdDate;
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -79,45 +60,16 @@ public class CustomerDto {
         this.emailAddress = emailAddress;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Date getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(Date lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CustomerDto that = (CustomerDto) o;
-        return Objects.equals(id, that.id) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(emailAddress, that.emailAddress) && Objects.equals(createdDate, that.createdDate) && Objects.equals(lastModifiedDate, that.lastModifiedDate);
+        return Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(emailAddress, that.emailAddress);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, phoneNumber, emailAddress, createdDate, lastModifiedDate);
-    }
-
-    @Override
-    public String toString() {
-        return "CustomerDto{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                ", createdDate=" + createdDate +
-                ", lastModifiedDate=" + lastModifiedDate +
-                '}';
+        return Objects.hash(firstName, lastName, phoneNumber, emailAddress);
     }
 }
