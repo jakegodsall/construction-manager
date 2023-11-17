@@ -3,28 +3,29 @@ package com.jakegodsall.constructionmanager.service.impl;
 import com.jakegodsall.constructionmanager.entity.Address;
 import com.jakegodsall.constructionmanager.entity.Job;
 import com.jakegodsall.constructionmanager.exception.ResourceNotFoundException;
+import com.jakegodsall.constructionmanager.mapper.JobMapper;
 import com.jakegodsall.constructionmanager.payload.JobDto;
 import com.jakegodsall.constructionmanager.repository.JobRepository;
 import com.jakegodsall.constructionmanager.service.JobService;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class JobServiceImpl implements JobService {
 
-    JobRepository jobRepository;
-
-    public JobServiceImpl(JobRepository jobRepository) {
-        this.jobRepository = jobRepository;
-    }
+    private final JobRepository jobRepository;
+    private final JobMapper jobMapper;
 
     @Override
     public List<JobDto> getAllJobs() {
         return jobRepository.findAll()
                 .stream()
-                .map(this::mapToDto)
+                .map(jobMapper::jobToJobDto)
                 .toList();
     }
 
@@ -35,17 +36,17 @@ public class JobServiceImpl implements JobService {
                 () -> new ResourceNotFoundException("Job", "id", id)
         );
         // Map to DTO and return
-        return mapToDto(job);
+        return jobMapper.jobToJobDto(job);
     }
 
     @Override
     public JobDto createJob(JobDto jobDto) {
         // Map the job DTO to job entity
-        Job job = mapToEntity(jobDto);
+        Job job = jobMapper.jobDtoToJob(jobDto);
         // Store the job entity in the database
         Job jobFromDb = jobRepository.save(job);
         // Map the job entity from the database to DTO and return
-        return mapToDto(jobFromDb);
+        return jobMapper.jobToJobDto(jobFromDb);
     }
 
     @Override
@@ -63,7 +64,7 @@ public class JobServiceImpl implements JobService {
         // save the updated job entity to the database
         Job updatedJob = jobRepository.save(job);
         // map updated job entity to DTO and return
-        return mapToDto(updatedJob);
+        return jobMapper.jobToJobDto(updatedJob);
 
     }
 
@@ -75,36 +76,5 @@ public class JobServiceImpl implements JobService {
         );
         // delete from the database
         jobRepository.delete(job);
-    }
-
-    private JobDto mapToDto(Job job) {
-        // Map from entity to DTO
-        JobDto jobDto = new JobDto();
-        jobDto.setId(job.getId());
-        jobDto.setCreatedDate(job.getCreatedDate());
-        jobDto.setLastModifiedDate(job.getLastModifiedDate());
-        jobDto.setStreet(job.getAddress().getStreet());
-        jobDto.setCity(job.getAddress().getCity());
-        jobDto.setPostCode(job.getAddress().getPostcode());
-        jobDto.setPrice(job.getPrice());
-        return jobDto;
-    }
-
-    private Job mapToEntity(JobDto jobDto) {
-        // Map from DTO to entity
-
-        // Create an Address class for embedding into job entity
-        Address address = new Address();
-        address.setStreet(jobDto.getStreet());
-        address.setCity(jobDto.getCity());
-        address.setPostcode(jobDto.getPostCode());
-
-        Job job = new Job();
-        job.setId(jobDto.getId());
-        job.setCreatedDate(jobDto.getCreatedDate());
-        job.setLastModifiedDate(jobDto.getLastModifiedDate());
-        job.setAddress(address);
-        job.setPrice(jobDto.getPrice());
-        return job;
     }
 }

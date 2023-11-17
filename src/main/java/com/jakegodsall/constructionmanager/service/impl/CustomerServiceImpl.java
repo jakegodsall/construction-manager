@@ -2,28 +2,29 @@ package com.jakegodsall.constructionmanager.service.impl;
 
 import com.jakegodsall.constructionmanager.entity.Customer;
 import com.jakegodsall.constructionmanager.exception.ResourceNotFoundException;
+import com.jakegodsall.constructionmanager.mapper.CustomerMapper;
 import com.jakegodsall.constructionmanager.payload.CustomerDto;
 import com.jakegodsall.constructionmanager.repository.CustomerRepository;
 import com.jakegodsall.constructionmanager.service.CustomerService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
 
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
+    private final CustomerMapper customerMapper;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-    }
 
     @Override
     public List<CustomerDto> getAllCustomers() {
         // Extract all Customer entities, map to DTO and return
         return customerRepository.findAll()
                 .stream()
-                .map(this::mapToDto)
+                .map(customerMapper::customerToCustomerDto)
                 .toList();
     }
 
@@ -34,7 +35,7 @@ public class CustomerServiceImpl implements CustomerService {
                 () -> new ResourceNotFoundException("Customer", "id", id)
         );
         // Map the entity to DTO and return
-        return this.mapToDto(customer);
+        return customerMapper.customerToCustomerDto(customer);
     }
 
     @Override
@@ -42,13 +43,13 @@ public class CustomerServiceImpl implements CustomerService {
         System.out.println("CUSTOMER DTO");
         System.out.println(customerDto);
         // Map the DTO to entity
-        Customer customer = this.mapToEntity(customerDto);
+        Customer customer = customerMapper.customerDtoToCustomer(customerDto);
         System.out.println("CUSTOMER");
         System.out.println(customer);
         // Save the entity in the db
         Customer customerInDb = customerRepository.save(customer);
         // Map the saved entity to DTO and return
-        return this.mapToDto(customerInDb);
+        return this.customerMapper.customerToCustomerDto(customerInDb);
     }
 
     @Override
@@ -67,7 +68,7 @@ public class CustomerServiceImpl implements CustomerService {
         // Save the entity in the database
         customerRepository.save(customer);
         // Map to DTO and return
-        return this.mapToDto(customer);
+        return customerMapper.customerToCustomerDto(customer);
     }
 
     @Override
@@ -78,32 +79,5 @@ public class CustomerServiceImpl implements CustomerService {
         );
         // Delete the entity from the db
         customerRepository.delete(customer);
-    }
-
-
-    private Customer mapToEntity(CustomerDto customerDto) {
-        // Map from DTO to entity
-        Customer customer = new Customer();
-        customer.setId(customerDto.getId());
-        customer.setFirstName(customerDto.getFirstName());
-        customer.setLastName(customerDto.getLastName());
-        customer.setPhoneNumber(customerDto.getPhoneNumber());
-        customer.setEmailAddress(customerDto.getEmailAddress());
-        customer.setCreatedDate(customerDto.getCreatedDate());
-        customer.setLastModifiedDate(customerDto.getLastModifiedDate());
-        return customer;
-    }
-
-    private CustomerDto mapToDto(Customer customer) {
-        // Map from entity to DTO
-        CustomerDto customerDto = new CustomerDto();
-        customerDto.setId(customer.getId());
-        customerDto.setFirstName(customer.getFirstName());
-        customerDto.setLastName(customer.getLastName());
-        customerDto.setPhoneNumber(customer.getPhoneNumber());
-        customerDto.setEmailAddress(customer.getEmailAddress());
-        customerDto.setCreatedDate(customer.getCreatedDate());
-        customerDto.setLastModifiedDate(customer.getLastModifiedDate());
-        return customerDto;
     }
 }

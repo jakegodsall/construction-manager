@@ -8,8 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "job")
-@NoArgsConstructor @RequiredArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 @Getter @Setter @Builder @EqualsAndHashCode(callSuper = false) @ToString
 public class Job extends BaseEntity {
     @ManyToOne

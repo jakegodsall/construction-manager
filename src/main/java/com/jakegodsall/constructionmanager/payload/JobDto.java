@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
-@NoArgsConstructor @RequiredArgsConstructor @AllArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 @Getter @Setter @Builder @EqualsAndHashCode(callSuper = false) @ToString
 public class JobDto extends BaseDto {
     @JsonProperty("customer_id")

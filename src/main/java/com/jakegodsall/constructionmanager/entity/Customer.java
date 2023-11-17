@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "customer")
-@NoArgsConstructor @RequiredArgsConstructor @AllArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 @Getter @Setter @Builder @EqualsAndHashCode(callSuper = false) @ToString
 public class Customer extends BaseEntity {
     @Column(name = "first_name")

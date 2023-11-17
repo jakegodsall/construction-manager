@@ -6,7 +6,7 @@ import lombok.*;
 import java.util.Date;
 import java.util.Objects;
 
-@NoArgsConstructor @RequiredArgsConstructor @AllArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 @Getter @Setter @Builder @EqualsAndHashCode(callSuper = false)
 @ToString
 public class CustomerDto extends BaseDto {
