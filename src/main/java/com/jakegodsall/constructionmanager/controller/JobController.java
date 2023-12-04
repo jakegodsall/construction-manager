@@ -11,8 +11,11 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/jobs")
+@RequestMapping
 public class JobController {
+
+    private static final String API_V1_ENDPOINT = "/api/v1/jobs";
+    private static final String API_V1_ENDPOINT_ID = API_V1_ENDPOINT + "/{id}";
 
     JobService jobService;
 
@@ -20,13 +23,13 @@ public class JobController {
         this.jobService = jobService;
     }
 
-    @GetMapping
+    @GetMapping(API_V1_ENDPOINT)
     public ResponseEntity<List<JobDto>> getAllJobs() {
         List<JobDto> jobs = jobService.getAllJobs();
         return new ResponseEntity<>(jobs, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping(API_V1_ENDPOINT)
     public ResponseEntity<JobDto> postJob(@RequestBody JobDto jobDto) {
         // Create the job entity in the database and store DTO in job
         JobDto job = jobService.createJob(jobDto);
@@ -40,13 +43,13 @@ public class JobController {
         return ResponseEntity.created(location).body(job);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(API_V1_ENDPOINT_ID)
     public ResponseEntity<JobDto> getJobById(@PathVariable Long id) {
         JobDto job = jobService.getJobById(id);
         return new ResponseEntity<>(job, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(API_V1_ENDPOINT_ID)
     public ResponseEntity<JobDto> updateJobById(
             @RequestBody JobDto jobDto,
             @PathVariable Long id
@@ -55,7 +58,7 @@ public class JobController {
         return new ResponseEntity<>(job, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(API_V1_ENDPOINT_ID)
     public ResponseEntity<Void> deleteJobById(@PathVariable Long id) {
         jobService.deleteJob(id);
         return ResponseEntity.noContent().build();

@@ -12,8 +12,10 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/customers")
 public class CustomerController {
+
+    public static final String API_V1_ENDPOINT = "/api/v1/customers";
+    public static final String API_V1_ENDPOINT_ID = API_V1_ENDPOINT + "/{id}";
 
     private CustomerService customerService;
 
@@ -21,7 +23,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping
+    @GetMapping(API_V1_ENDPOINT)
     public ResponseEntity<List<CustomerDto>> getAllCustomers() {
         // Get List of Customer DTOs
         List<CustomerDto> customers = customerService.getAllCustomers();
@@ -29,7 +31,7 @@ public class CustomerController {
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping(API_V1_ENDPOINT)
     ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto customerDto) {
         System.out.println("FROM POST MAPPING");
         System.out.println(customerDto);
@@ -47,7 +49,7 @@ public class CustomerController {
                 .body(customer);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(API_V1_ENDPOINT_ID)
     public ResponseEntity<CustomerDto> getCustomerById(@PathVariable Long id) {
         // Get Customer DTO object
         CustomerDto customer = customerService.getCustomerById(id);
@@ -55,7 +57,7 @@ public class CustomerController {
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(API_V1_ENDPOINT_ID)
     public ResponseEntity<CustomerDto> updateCustomerById(
             @RequestBody CustomerDto customerDto,
             @PathVariable Long id
@@ -66,7 +68,7 @@ public class CustomerController {
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(API_V1_ENDPOINT_ID)
     public ResponseEntity<Void> deleteCustomerById(@PathVariable Long id) {
         // Delete the row in db with primary key provided in path
         customerService.deleteCustomer(id);
