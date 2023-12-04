@@ -28,11 +28,12 @@ public class Customer extends BaseEntity {
     public Customer(Long id,
                     Date createdDate,
                     Date lastModifiedDate,
+                    Long version,
                     String firstName,
                     String lastName,
                     String phoneNumber,
                     String emailAddress) {
-        super(id, createdDate, lastModifiedDate);
+        super(id, createdDate, lastModifiedDate, version);
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;

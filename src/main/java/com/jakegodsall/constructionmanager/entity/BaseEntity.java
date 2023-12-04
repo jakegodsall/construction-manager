@@ -17,11 +17,12 @@ public class BaseEntity {
     private Long id;
 
     @CreationTimestamp
-    @Column(insertable = false, updatable = false)
     private Date createdDate;
 
 
-    @Column(insertable = false, updatable = false)
     @UpdateTimestamp
     private Date lastModifiedDate;
+
+    @Version
+    private Long version;
 }

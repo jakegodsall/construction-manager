@@ -35,6 +35,7 @@ public class Job extends BaseEntity {
             Long id,
             Date createdDate,
             Date lastModifiedDate,
+            Long version,
             Customer customer,
             Address address,
             JobStatus jobStatus,
@@ -42,7 +43,7 @@ public class Job extends BaseEntity {
             Quotation quotation,
             Invoice invoice
     ) {
-        super(id, createdDate, lastModifiedDate);
+        super(id, createdDate, lastModifiedDate, version);
         this.customer = customer;
         this.address = address;
         this.jobStatus = jobStatus;
