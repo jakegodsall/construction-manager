@@ -1,8 +1,6 @@
 package com.jakegodsall.constructionmanager.bootstrap;
 
-import com.jakegodsall.constructionmanager.entity.Address;
-import com.jakegodsall.constructionmanager.entity.Customer;
-import com.jakegodsall.constructionmanager.payload.AddressDto;
+import com.jakegodsall.constructionmanager.entity.Job;
 import com.jakegodsall.constructionmanager.payload.CustomerDto;
 import com.jakegodsall.constructionmanager.payload.JobDto;
 import com.jakegodsall.constructionmanager.service.CustomerService;
@@ -46,17 +44,6 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void initializeJobs() {
-        JobDto job1 = JobDto.builder()
-                .addressDto(AddressDto.builder()
-                        .street("25 Camden Street")
-                        .city("Walsall")
-                        .postcode("WS9 9BQ")
-                        .build())
-                .price(new BigDecimal(1000))
-                .build();
 
-        System.out.println("JOB1" + job1);
-
-        jobService.createJob(job1);
     }
 }

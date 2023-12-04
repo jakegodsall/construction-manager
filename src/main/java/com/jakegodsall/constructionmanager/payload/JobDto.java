@@ -10,17 +10,45 @@ import java.util.Objects;
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter @Builder @EqualsAndHashCode(callSuper = false) @ToString
 public class JobDto extends BaseDto {
-    @JsonProperty("customer_id")
+
     private Long customerId;
+
     private String street;
+
     private String city;
-    @JsonProperty("post_code")
+
     private String postCode;
-    @JsonProperty("job_status")
+
     private String jobStatus;
+
     private BigDecimal price;
-    @JsonProperty("quotation_id")
+
     private Long quotationId;
-    @JsonProperty("invoice_id")
+
     private Long invoiceId;
+
+    @Builder
+    public JobDto(
+            Long id,
+            Date createdDate,
+            Date lastModifiedDate,
+            Long customerId,
+            String street,
+            String city,
+            String postCode,
+            String jobStatus,
+            BigDecimal price,
+            Long quotationId,
+            Long invoiceId
+    ) {
+        super(id, createdDate, lastModifiedDate);
+        this.customerId = customerId;
+        this.street = street;
+        this.city = city;
+        this.postCode = postCode;
+        this.jobStatus = jobStatus;
+        this.price = price;
+        this.quotationId = quotationId;
+        this.invoiceId = invoiceId;
+    }
 }

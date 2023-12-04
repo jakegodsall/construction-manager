@@ -10,12 +10,25 @@ import java.util.Objects;
 @Getter @Setter @Builder @EqualsAndHashCode(callSuper = false)
 @ToString
 public class CustomerDto extends BaseDto {
-    @JsonProperty("first_name")
     private String firstName;
-    @JsonProperty("last_name")
     private String lastName;
-    @JsonProperty("phone_number")
     private String phoneNumber;
-    @JsonProperty("email_address")
     private String emailAddress;
+
+    @Builder
+    public CustomerDto(
+            Long id,
+            Date createdDate,
+            Date lastModifiedDate,
+            String firstName,
+            String lastName,
+            String phoneNumber,
+            String emailAddress
+    ) {
+        super(id, createdDate, lastModifiedDate);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.emailAddress = emailAddress;
+    }
 }
