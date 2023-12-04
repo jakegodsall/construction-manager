@@ -7,6 +7,7 @@ import com.jakegodsall.constructionmanager.payload.CustomerDto;
 import com.jakegodsall.constructionmanager.repository.CustomerRepository;
 import com.jakegodsall.constructionmanager.service.CustomerService;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

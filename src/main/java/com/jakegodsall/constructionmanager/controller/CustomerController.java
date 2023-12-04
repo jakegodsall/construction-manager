@@ -3,6 +3,8 @@ package com.jakegodsall.constructionmanager.controller;
 import com.jakegodsall.constructionmanager.entity.Customer;
 import com.jakegodsall.constructionmanager.payload.CustomerDto;
 import com.jakegodsall.constructionmanager.service.CustomerService;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,17 +13,14 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 public class CustomerController {
 
     public static final String API_V1_ENDPOINT = "/api/v1/customers";
     public static final String API_V1_ENDPOINT_ID = API_V1_ENDPOINT + "/{id}";
 
-    private CustomerService customerService;
-
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
-    }
+    private final CustomerService customerService;
 
     @GetMapping(API_V1_ENDPOINT)
     public ResponseEntity<List<CustomerDto>> getAllCustomers() {

@@ -17,7 +17,7 @@ public class JobController {
     private static final String API_V1_ENDPOINT = "/api/v1/jobs";
     private static final String API_V1_ENDPOINT_ID = API_V1_ENDPOINT + "/{id}";
 
-    JobService jobService;
+    private final JobService jobService;
 
     public JobController(JobService jobService) {
         this.jobService = jobService;
