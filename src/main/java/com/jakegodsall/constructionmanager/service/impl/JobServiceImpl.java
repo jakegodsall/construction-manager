@@ -56,7 +56,6 @@ public class JobServiceImpl implements JobService {
                 () -> new ResourceNotFoundException("Job", "id", id)
         );
         // update fields of the job entity
-        job.setLastModifiedDate(new Date());
         job.getAddress().setStreet(jobDto.getStreet());
         job.getAddress().setCity(jobDto.getCity());
         job.getAddress().setPostcode(jobDto.getPostCode());

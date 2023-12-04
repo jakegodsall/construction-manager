@@ -18,7 +18,6 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
 
-
     @Override
     public List<CustomerDto> getAllCustomers() {
         // Extract all Customer entities, map to DTO and return
@@ -40,12 +39,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDto createCustomer(CustomerDto customerDto) {
-        System.out.println("CUSTOMER DTO");
-        System.out.println(customerDto);
         // Map the DTO to entity
         Customer customer = customerMapper.customerDtoToCustomer(customerDto);
-        System.out.println("CUSTOMER");
-        System.out.println(customer);
         // Save the entity in the db
         Customer customerInDb = customerRepository.save(customer);
         // Map the saved entity to DTO and return
@@ -63,8 +58,6 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setLastName(customerDto.getLastName());
         customer.setPhoneNumber(customerDto.getPhoneNumber());
         customer.setEmailAddress(customerDto.getEmailAddress());
-        customer.setCreatedDate(customerDto.getCreatedDate());
-        customer.setLastModifiedDate(customerDto.getLastModifiedDate());
         // Save the entity in the database
         customerRepository.save(customer);
         // Map to DTO and return
